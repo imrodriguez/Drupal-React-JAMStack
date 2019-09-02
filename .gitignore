@@ -25,6 +25,7 @@ backend/web/core
 backend/web/modules/README.txt
 backend/web/profiles/README.txt
 backend/web/sites/README.txt
+backend/web/modules/contrib
 backend/web/sites/example.sites.php
 backend/web/sites/example.settings.local.php
 backend/web/sites/development.services.yml
@@ -35,14 +36,3 @@ backend/web/.editorconfig
 backend/web/.eslintignore
 backend/web/.eslintrc.json
 backend/web/.gitattributes
-backend/web/.htaccess
-backend/web/autoload.php
-backend/web/composer.json
-backend/web/composer.lock
-backend/web/example.gitignore
-backend/web/index.php
-backend/web/LICENSE.txt
-backend/web/README.txt
-backend/web/robots.txt
-backend/web/update.php
-backend/web/web.config
