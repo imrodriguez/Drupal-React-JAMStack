@@ -5,8 +5,8 @@ frontend/node_modules
 frontend/build
 
 # Ignore configuration files that may contain sensitive information
-backend/web/sites/*/*settings*.php
-backend/web/sites/*/*services*.yml
+backend/web/sites/*/settings.php
+backend/web/sites/*/services.yml
 
 # Ignore paths that may contain user-generated content
 backend/web/sites/*/files
@@ -26,9 +26,6 @@ backend/web/modules/README.txt
 backend/web/profiles/README.txt
 backend/web/sites/README.txt
 backend/web/modules/contrib
-backend/web/sites/example.sites.php
-backend/web/sites/example.settings.local.php
-backend/web/sites/development.services.yml
 backend/web/themes/README.txt
 backend/web/vendor
 backend/web/.csslintrc
