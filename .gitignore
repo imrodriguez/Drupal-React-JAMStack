@@ -28,6 +28,7 @@ backend/web/sites/README.txt
 backend/web/modules/contrib
 backend/web/themes/README.txt
 backend/web/vendor
+backend/vendor
 backend/web/.csslintrc
 backend/web/.editorconfig
 backend/web/.eslintignore
