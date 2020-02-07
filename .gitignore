@@ -33,3 +33,6 @@ backend/web/.editorconfig
 backend/web/.eslintignore
 backend/web/.eslintrc.json
 backend/web/.gitattributes
+
+# Ignore global configuration
+.env

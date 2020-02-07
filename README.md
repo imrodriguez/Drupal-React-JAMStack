@@ -8,20 +8,15 @@ Technologies
   - ReactJS
   - Docker
 
-Before all
+Configuration
 ========
-  - Execute 'npm install' and 'npm run build' on frontend folder
+  - Copy .env.example to .env and modify it if needed. 
 
 Install
 ========
-  - Start containers
-  - In backend container execute 'composer install'
-  - In backend container execute 'drush site-install --db-url=mysql://{username}:{password}@localhost/{database}'
-  - In backend container execute 'vendor/bin/drush cim'
+  - Execute install.sh
 
-Cheat sheet
-========
+Start
+========  
   - Build containers with docker-compose build
   - Start containers with docker-compose up
-  - Stop containers with docker-compose down
-  - Enter to bash of container with docker-compose exec --user=1000:1000 <NAME OF CONTAINER> bash
