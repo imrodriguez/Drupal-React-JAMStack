@@ -19,7 +19,7 @@ class DelegatingLoaderTest extends TestCase
 {
     public function testConstructor()
     {
-        new DelegatingLoader($resolver = new LoaderResolver());
+        $loader = new DelegatingLoader($resolver = new LoaderResolver());
         $this->assertTrue(true, '__construct() takes a loader resolver as its first argument');
     }
 

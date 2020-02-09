@@ -86,10 +86,8 @@ class StringBasedFileContentTestCase extends \BC_PHPUnit_Framework_TestCase
      */
     public function readAfterEndReturnsEmptyString()
     {
-        // Read more than the length of the string to test substr() returning
-        // false.
-        $this->stringBasedFileContent->read(10);
-        $this->assertSame('', $this->stringBasedFileContent->read(3));
+        $this->stringBasedFileContent->read(9);
+        $this->assertEquals('', $this->stringBasedFileContent->read(3));
     }
 
     /**

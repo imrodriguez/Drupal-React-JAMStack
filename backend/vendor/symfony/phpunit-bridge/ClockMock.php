@@ -52,10 +52,12 @@ class ClockMock
     public static function usleep($us)
     {
         if (null === self::$now) {
-            \usleep($us);
-        } else {
-            self::$now += $us / 1000000;
+            return \usleep($us);
         }
+
+        self::$now += $us / 1000000;
+
+        return null;
     }
 
     public static function microtime($asFloat = false)
@@ -106,7 +108,7 @@ function sleep(\$s)
 
 function usleep(\$us)
 {
-    \\$self::usleep(\$us);
+    return \\$self::usleep(\$us);
 }
 
 EOPHP

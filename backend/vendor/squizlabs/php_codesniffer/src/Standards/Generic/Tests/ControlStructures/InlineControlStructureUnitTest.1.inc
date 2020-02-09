@@ -238,15 +238,3 @@ if ($bar)
 if (true) $callable = function () {
     return true;
 };
-
-foreach ([] as $a)
-echo 'bar';
-{
-    echo 'baz';
-}
-
-// Issue 2822.
-$i = 10;
-while ($i > 0 && --$i);
-
-for ($i = 1, $j = 0; $i <= 10; $j += $i, print $i, $i++);

@@ -12,8 +12,8 @@
 
 namespace PHP_CodeSniffer;
 
-use PHP_CodeSniffer\Exceptions\DeepExitException;
 use PHP_CodeSniffer\Exceptions\RuntimeException;
+use PHP_CodeSniffer\Exceptions\DeepExitException;
 
 class Config
 {
@@ -23,7 +23,7 @@ class Config
      *
      * @var string
      */
-    const VERSION = '3.5.4';
+    const VERSION = '3.4.2';
 
     /**
      * Package stability; either stable, beta or alpha.
@@ -219,10 +219,7 @@ class Config
         switch ($name) {
         case 'reportWidth' :
             // Support auto terminal width.
-            if ($value === 'auto'
-                && function_exists('shell_exec') === true
-                && preg_match('|\d+ (\d+)|', shell_exec('stty size 2>&1'), $matches) === 1
-            ) {
+            if ($value === 'auto' && preg_match('|\d+ (\d+)|', shell_exec('stty size 2>&1'), $matches) === 1) {
                 $value = (int) $matches[1];
             } else {
                 $value = (int) $value;
@@ -360,7 +357,7 @@ class Config
 
                 $lastDir    = $currentDir;
                 $currentDir = dirname($currentDir);
-            } while ($currentDir !== '.' && $currentDir !== $lastDir && @is_readable($currentDir) === true);
+            } while ($currentDir !== '.' && $currentDir !== $lastDir);
         }//end if
 
         if (defined('STDIN') === false
@@ -420,7 +417,7 @@ class Config
                 continue;
             }
 
-            if ($arg[0] === '-') {
+            if ($arg{0} === '-') {
                 if ($arg === '-') {
                     // Asking to read from STDIN.
                     $this->stdin = true;
@@ -433,7 +430,7 @@ class Config
                     continue;
                 }
 
-                if ($arg[1] === '-') {
+                if ($arg{1} === '-') {
                     $this->processLongArgument(substr($arg, 2), $i);
                 } else {
                     $switches = str_split($arg);
@@ -587,7 +584,6 @@ class Config
      * @param int    $pos The position of the argument on the command line.
      *
      * @return void
-     * @throws \PHP_CodeSniffer\Exceptions\DeepExitException
      */
     public function processShortArgument($arg, $pos)
     {
@@ -692,7 +688,6 @@ class Config
      * @param int    $pos The position of the argument on the command line.
      *
      * @return void
-     * @throws \PHP_CodeSniffer\Exceptions\DeepExitException
      */
     public function processLongArgument($arg, $pos)
     {
@@ -891,7 +886,7 @@ class Config
                         // Passed cache file is a file in the current directory.
                         $this->cacheFile = getcwd().'/'.basename($this->cacheFile);
                     } else {
-                        if ($dir[0] === '/') {
+                        if ($dir{0} === '/') {
                             // An absolute path.
                             $dir = Util\Common::realpath($dir);
                         } else {
@@ -972,14 +967,29 @@ class Config
                 if ($this->reportFile === false) {
                     $this->reportFile = substr($arg, 12);
 
-                    $dir = Util\Common::realpath(dirname($this->reportFile));
+                    $dir = dirname($this->reportFile);
                     if (is_dir($dir) === false) {
                         $error  = 'ERROR: The specified report file path "'.$this->reportFile.'" points to a non-existent directory'.PHP_EOL.PHP_EOL;
                         $error .= $this->printShortUsage(true);
                         throw new DeepExitException($error, 3);
                     }
 
-                    $this->reportFile = $dir.'/'.basename($this->reportFile);
+                    if ($dir === '.') {
+                        // Passed report file is a file in the current directory.
+                        $this->reportFile = getcwd().'/'.basename($this->reportFile);
+                    } else {
+                        if ($dir{0} === '/') {
+                            // An absolute path.
+                            $dir = Util\Common::realpath($dir);
+                        } else {
+                            $dir = Util\Common::realpath(getcwd().'/'.$dir);
+                        }
+
+                        if ($dir !== false) {
+                            // Report file path is relative.
+                            $this->reportFile = $dir.'/'.basename($this->reportFile);
+                        }
+                    }
                 }//end if
 
                 self::$overriddenDefaults['reportFile'] = true;
@@ -1035,19 +1045,28 @@ class Config
                         if ($output === false) {
                             $output = null;
                         } else {
-                            $dir = Util\Common::realpath(dirname($output));
+                            $dir = dirname($output);
                             if (is_dir($dir) === false) {
                                 $error  = 'ERROR: The specified '.$report.' report file path "'.$output.'" points to a non-existent directory'.PHP_EOL.PHP_EOL;
                                 $error .= $this->printShortUsage(true);
                                 throw new DeepExitException($error, 3);
                             }
 
-                            $output = $dir.'/'.basename($output);
+                            if ($dir === '.') {
+                                // Passed report file is a filename in the current directory.
+                                $output = getcwd().'/'.basename($output);
+                            } else {
+                                if ($dir{0} === '/') {
+                                    // An absolute path.
+                                    $dir = Util\Common::realpath($dir);
+                                } else {
+                                    $dir = Util\Common::realpath(getcwd().'/'.$dir);
+                                }
 
-                            if (is_dir($output) === true) {
-                                $error  = 'ERROR: The specified '.$report.' report file path "'.$output.'" is a directory'.PHP_EOL.PHP_EOL;
-                                $error .= $this->printShortUsage(true);
-                                throw new DeepExitException($error, 3);
+                                if ($dir !== false) {
+                                    // Report file path is relative.
+                                    $output = $dir.'/'.basename($output);
+                                }
                             }
                         }//end if
                     }//end if
@@ -1230,12 +1249,11 @@ class Config
      * @param int    $pos The position of the argument on the command line.
      *
      * @return void
-     * @throws \PHP_CodeSniffer\Exceptions\DeepExitException
      */
     public function processUnknownArgument($arg, $pos)
     {
         // We don't know about any additional switches; just files.
-        if ($arg[0] === '-') {
+        if ($arg{0} === '-') {
             if ($this->dieOnUnknownArg === false) {
                 return;
             }
@@ -1256,7 +1274,6 @@ class Config
      * @param string $path The path to the file to add.
      *
      * @return void
-     * @throws \PHP_CodeSniffer\Exceptions\DeepExitException
      */
     public function processFilePath($path)
     {
@@ -1385,9 +1402,8 @@ class Config
         echo '                e.g., module/php,es/js'.PHP_EOL;
         echo ' <file>         One or more files and/or directories to check'.PHP_EOL;
         echo ' <fileList>     A file containing a list of files and/or directories to check (one per line)'.PHP_EOL;
-        echo ' <filter>       Use either the "gitmodified" or "gitstaged" filter,'.PHP_EOL;
-        echo '                or specify the path to a custom filter class'.PHP_EOL;
-        echo ' <generator>    Use either the "HTML", "Markdown" or "Text" generator'.PHP_EOL;
+        echo ' <filter>       Use the "gitmodified" filter, or specify the path to a custom filter class'.PHP_EOL;
+        echo ' <generator>    Uses either the "HTML", "Markdown" or "Text" generator'.PHP_EOL;
         echo '                (forces documentation generation instead of checking)'.PHP_EOL;
         echo ' <patterns>     A comma separated list of patterns to ignore files and directories'.PHP_EOL;
         echo ' <processes>    How many files should be checked simultaneously (default is 1)'.PHP_EOL;
@@ -1447,8 +1463,7 @@ class Config
         echo '               e.g., module/php,es/js'.PHP_EOL;
         echo ' <file>        One or more files and/or directories to fix'.PHP_EOL;
         echo ' <fileList>    A file containing a list of files and/or directories to fix (one per line)'.PHP_EOL;
-        echo ' <filter>      Use either the "gitmodified" or "gitstaged" filter,'.PHP_EOL;
-        echo '               or specify the path to a custom filter class'.PHP_EOL;
+        echo ' <filter>      Use the "gitmodified" filter, or specify the path to a custom filter class'.PHP_EOL;
         echo ' <patterns>    A comma separated list of patterns to ignore files and directories'.PHP_EOL;
         echo ' <processes>   How many files should be fixed simultaneously (default is 1)'.PHP_EOL;
         echo ' <severity>    The minimum severity required to fix an error or warning'.PHP_EOL;
@@ -1543,7 +1558,7 @@ class Config
      *
      * @return bool
      * @see    getConfigData()
-     * @throws \PHP_CodeSniffer\Exceptions\DeepExitException If the config file can not be written.
+     * @throws \PHP_CodeSniffer\Exceptions\RuntimeException If the config file can not be written.
      */
     public static function setConfigData($key, $value, $temp=false)
     {
@@ -1624,7 +1639,6 @@ class Config
      *
      * @return array<string, string>
      * @see    getConfigData()
-     * @throws \PHP_CodeSniffer\Exceptions\DeepExitException If the config file could not be read.
      */
     public static function getAllConfigData()
     {
