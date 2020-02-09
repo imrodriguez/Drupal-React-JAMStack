@@ -29,11 +29,11 @@ backend/web/modules/contrib
 backend/web/themes/README.txt
 backend/web/vendor
 backend/vendor
-backend/web/.csslintrc
-backend/web/.editorconfig
-backend/web/.eslintignore
-backend/web/.eslintrc.json
-backend/web/.gitattributes
+backend/.csslintrc
+backend/.editorconfig
+backend/.eslintignore
+backend/.eslintrc.json
+backend/.gitattributes
 
 # Ignore global configuration
 .env
