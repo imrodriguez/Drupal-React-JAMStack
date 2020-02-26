@@ -1,16 +1,12 @@
 # A enviroment of JAM Stack with Drupal and ReactJS on Docker
 
-Technologies
+What is this?
 ========
-  - Drupal
-  - Apache
-  - PHP
-  - ReactJS
-  - Docker
+  - Is a boilerplate of a project with Drupal headless and ReactJS (You can use another frontend framework if you needed), a prove of concept of JAM stack with Drupal and a repo that you can clone, run and code.
 
 Configuration
 ========
-  - Copy .env.example to .env and modify it if needed. 
+  - Copy .env.example to .env and modify it. 
 
 Install
 ========
@@ -18,5 +14,4 @@ Install
 
 Start
 ========  
-  - Build containers with docker-compose build
-  - Start containers with docker-compose up
+  - Execute start.sh
