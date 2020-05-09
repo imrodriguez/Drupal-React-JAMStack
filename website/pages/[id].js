@@ -23,7 +23,5 @@ export async function getStaticProps({ params }) {
     const page = await pageService.get(params.id)
     const menuItems = await menuService.get('main')
 
-    console.log('PAGEEEEEEEEEEEEEEEEEEEE', page)
-
     return { props: { page, menuItems, params } }
 }
