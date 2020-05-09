@@ -47,6 +47,7 @@ RUN apt-get install nodejs -y && \
   openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/ssl/private/ssl-cert-snakeoil.key -out /etc/ssl/certs/ssl-cert-snakeoil.pem -subj '/'
 
 ADD templates/apache2.conf /etc/apache2/
+ADD templates/000-default.conf /etc/apache2/sites-available
 ADD templates/php.ini /usr/local/etc/php/
 ADD templates/ssmtp.conf /etc/ssmtp/
 ADD templates/xdebug.ini /usr/local/etc/php/conf.d/
