@@ -1,0 +1,19 @@
+uuid: bd25e75c-f7db-445e-825d-9eae9ca10b9c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_path
+    - node.type.article
+id: node.article.field_path
+field_name: field_path
+entity_type: node
+bundle: article
+label: Path
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
