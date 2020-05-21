@@ -31,12 +31,12 @@ Remember
 
 ENV Explanation
 ========
-  -MYSQL_ROOT_PASSWORD: Password will set on MYSQL
-  -MYSQL_DEFAULT_DATABASE: Name of database that will be set
-  -BACKEND_PORT: Port that will be used for backend dashboard 
-  -FRONTEND_PORT: Port that will be used for website
-  -MYSQL_PORT: Port that will be used for MYSQL
-  -DRUPAL_UUID: Drupal UUID static for maintain the config
-  -DRUPAL_USER: Drupal username will be created
-  -DRUPAL_PASSWD: Drupal user password will be created
-  -SERVER_NAME: Server name for backend
+  - MYSQL_ROOT_PASSWORD: Password will set on MYSQL
+  - MYSQL_DEFAULT_DATABASE: Name of database that will be set
+  - BACKEND_PORT: Port that will be used for backend dashboard 
+  - FRONTEND_PORT: Port that will be used for website
+  - MYSQL_PORT: Port that will be used for MYSQL
+  - DRUPAL_UUID: Drupal UUID static for maintain the config
+  - DRUPAL_USER: Drupal username will be created
+  - DRUPAL_PASSWD: Drupal user password will be created
+  - SERVER_NAME: Server name for backend
