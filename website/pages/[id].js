@@ -1,20 +1,18 @@
 import Head from '../components/Head'
-import Nav from '../components/Nav'
 import menuService from '../services/menu'
 import pageService from '../services/page'
-import drupalField from '../helpers/drupalField'
 
 export default (props) => (
-    <div>
-        <Head title="Home" />
-        <Nav links={props.menuItems} />
-        <h1>{drupalField(props.page[0].title)}</h1>
-    </div>
+    <>
+        <Head title={props.page[0].title} />
+        <h1>{props.page[0].title}</h1>
+        <div dangerouslySetInnerHTML={{ __html: props.page[0].body }}></div>
+    </>
 )
 
 export async function getStaticPaths() {
     const pages = await pageService.getAll()
-    const paths = pages.map(page => `/${page.field_path[0].value}`)
+    const paths = pages.map(page => `/${page.path}`)
 
     return { paths, fallback: false }
 }

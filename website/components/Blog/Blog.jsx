@@ -1,19 +1,18 @@
 import React from 'react'
-import drupalField from '../../helpers/drupalField'
-import { PostCard } from './Blog.styles';
+import { Grid, PostCard, Title, Date } from './Blog.styles';
 
 const Blog = (props) => (
-  <div className="BlogWrapper">
+  <Grid>
     {props.posts.map((post, index) => {
       return (
-        <PostCard>
-          <p key={index}>{drupalField(post.created)}</p>
-          <p key={index}>{drupalField(post.title)}</p>
-          <img src={drupalField(post.field_image)} />
+        <PostCard key={index}>
+          <a href={`/blog/${post.path}`}><img src={`${process.env.API_URL}${post.image}`} alt={post.title} /></a>
+          <a href={`/blog/${post.path}`}><Title>{post.title}</Title></a>
+          <Date>{post.created}</Date>
         </PostCard>
       )
     })}
-  </div>
+  </Grid>
 )
 
 export default Blog

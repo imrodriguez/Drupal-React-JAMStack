@@ -24,7 +24,7 @@ docker-compose exec -u 1000 backend bash -c "cp web/sites/default/default.servic
 
 #frontend build
 cd website
+# Generate .env file
+echo "API_URL=http://${SERVER_NAME}:${BACKEND_PORT}" > .env
 # Install dependencies
 npm install
-# Build React app
-npm run build

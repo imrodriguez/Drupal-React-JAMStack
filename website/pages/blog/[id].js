@@ -1,21 +1,18 @@
 import Head from '../../components/Head'
-import Nav from '../../components/Nav'
 import menuService from '../../services/menu'
 import blogService from '../../services/blog'
-import drupalField from '../../helpers/drupalField'
 
 export default (props) => (
-    <div>
-        {console.log(props)}
-        <Head title="Home" />
-        <Nav links={props.menuItems} />
-        <h1>{drupalField(props.post[0].title)}</h1>
-    </div>
+    <>
+        <Head title={props.post[0].title} />
+        <h1>{props.post[0].title}</h1>
+        <div dangerouslySetInnerHTML={{ __html: props.post[0].body }}></div>
+    </>
 )
 
 export async function getStaticPaths() {
     const posts = await blogService.getAll()
-    const paths = posts.map(post => `/blog/${post.field_path[0].value}`)
+    const paths = posts.map(post => `/blog/${post.path}`)
 
     return { paths, fallback: false }
 }

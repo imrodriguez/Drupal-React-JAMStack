@@ -21,3 +21,22 @@ Start
   - Execute start.sh
   - Then we can administrate Drupal in the web browser on BACKEND_PORT configured on .env (by default 80)
   - Website is showed in the FRONTEND_PORT configured on .env (by default 8080)
+
+Remember
+========
+  That project works with generation of HTML files, because of that we should generate the files every time that we want to publish a new version of content (I'm working on automatize that). For generate the files run that command on website directory:
+  ```
+  npm run build
+  ```
+
+ENV Explanation
+========
+  -MYSQL_ROOT_PASSWORD: Password will set on MYSQL
+  -MYSQL_DEFAULT_DATABASE: Name of database that will be set
+  -BACKEND_PORT: Port that will be used for backend dashboard 
+  -FRONTEND_PORT: Port that will be used for website
+  -MYSQL_PORT: Port that will be used for MYSQL
+  -DRUPAL_UUID: Drupal UUID static for maintain the config
+  -DRUPAL_USER: Drupal username will be created
+  -DRUPAL_PASSWD: Drupal user password will be created
+  -SERVER_NAME: Server name for backend
