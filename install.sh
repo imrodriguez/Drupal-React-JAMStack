@@ -28,3 +28,5 @@ cd website
 echo "API_URL=http://${SERVER_NAME}:${BACKEND_PORT}" > .env
 # Install dependencies
 npm install
+# Build frontend application
+npm run build
